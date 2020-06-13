@@ -3,13 +3,17 @@
 # dependencies
 routed-anecdotes/node_modules
 routed-anecdotes/.pnp
+country-hook/node_modules
+country-hook/.pnp
 .pnp.js
 
 # testing
 routed-anecdotes/coverage
+country-hook/coverage
 
 # production
 routed-anecdotes/build
+country-hook/build
 
 # misc
 .DS_Store
@@ -23,4 +27,5 @@ yarn-debug.log*
 yarn-error.log*
 
 routed-anecdotes/.vscode
+country-hook/.vscode
 .vscode
