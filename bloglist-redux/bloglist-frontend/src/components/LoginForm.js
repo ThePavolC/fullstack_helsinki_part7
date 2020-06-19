@@ -23,8 +23,6 @@ const LoginForm = ({
 
       blogService.setToken(user.token);
       setUser(user);
-      setUsername("");
-      setPassword("");
     } catch (exception) {
       setUsername("");
       setPassword("");
