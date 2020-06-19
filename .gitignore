@@ -7,17 +7,25 @@ country-hook/node_modules
 country-hook/.pnp
 ultimate-hooks/node_modules
 ultimate-hooks/.pnp
+bloglist-redux/backend/node_modules
+bloglist-redux/backend/.pnp
+bloglist-redux/bloglist-frontend/node_modules
+bloglist-redux/bloglist-frontend/.pnp
 .pnp.js
 
 # testing
 routed-anecdotes/coverage
 country-hook/coverage
 ultimate-hooks/coverage
+bloglist-redux/backend/coverage
+bloglist-redux/bloglist-frontend/coverage
 
 # production
 routed-anecdotes/build
 country-hook/build
 ultimate-hooks/build
+bloglist-redux/backend/build
+bloglist-redux/bloglist-frontend/build
 
 # misc
 .DS_Store
@@ -33,4 +41,6 @@ yarn-error.log*
 routed-anecdotes/.vscode
 country-hook/.vscode
 ultimate-hooks/.vscode
+bloglist-redux/backend/.vscode
+bloglist-redux/bloglist-frontend/.vscode
 .vscode
