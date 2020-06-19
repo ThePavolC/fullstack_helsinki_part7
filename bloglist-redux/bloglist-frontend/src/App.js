@@ -12,8 +12,10 @@ const App = () => {
   const [isErrorNotification, setIsErrorNotification] = useState(false);
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs));
-  }, []);
+    if (user) {
+      blogService.getAll().then((blogs) => setBlogs(blogs));
+    }
+  }, [user]);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedBlogappUser");
