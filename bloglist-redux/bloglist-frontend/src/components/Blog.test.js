@@ -49,7 +49,7 @@ describe("<Blog />", () => {
   });
 
   test("handler is called when like button is clicked", () => {
-    const likeButton = component.container.querySelector(".likeButton");
+    const likeButton = component.container.querySelector(".likeButtonClass");
     fireEvent.click(likeButton);
     expect(mockHandleAddLike.mock.calls).toHaveLength(1);
     fireEvent.click(likeButton);

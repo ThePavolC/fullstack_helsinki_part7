@@ -1,33 +1,18 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 
-const AddBlogForm = ({
-  blogService,
-  setBlogs,
-  setNotification,
-  setIsErrorNotification,
-}) => {
+import { createBlog } from "../reducers/blogReducer";
+
+const AddBlogForm = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
 
+  const dispatch = useDispatch();
+
   const handleAddBlog = async (event) => {
     event.preventDefault();
-    try {
-      await blogService.addBlog({ title, author, url });
-      setNotification(`a new blog ${title} by ${author} added`);
-      setTimeout(() => setNotification(null), 2000);
-    } catch (error) {
-      setNotification(`a new blog ${title} by ${author} added`);
-      setIsErrorNotification(true);
-      setTimeout(() => {
-        setIsErrorNotification(false);
-        setNotification(null);
-      }, 2000);
-    }
-
-    const updatedBlogs = await blogService.getAll();
-    setBlogs(updatedBlogs);
+    dispatch(createBlog({ title, author, url }));
   };
 
   return (
@@ -70,13 +55,6 @@ const AddBlogForm = ({
       </form>
     </div>
   );
-};
-
-AddBlogForm.propTypes = {
-  blogService: PropTypes.object.isRequired,
-  setBlogs: PropTypes.func.isRequired,
-  setNotification: PropTypes.func.isRequired,
-  setIsErrorNotification: PropTypes.func.isRequired,
 };
 
 export default AddBlogForm;
