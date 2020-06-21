@@ -5,7 +5,7 @@ import { logoutUser } from "../reducers/userReducer";
 
 const UserPanel = () => {
   const dispatch = useDispatch();
-  const user = useSelector(({ user }) => user);
+  const user = useSelector(({ user }) => user.user);
 
   const handleLogout = () => {
     dispatch(logoutUser());
