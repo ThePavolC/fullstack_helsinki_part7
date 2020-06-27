@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 import Notification from "./components/Notification";
-import UserPanel from "./components/UserPanel";
 import LoginForm from "./components/LoginForm";
 import User from "./components/User";
 import Blog from "./components/Blog";
+import NavigationMenu from "./components/NavigationMenu";
 
 import BlogsRoute from "./components/routes/BlogsRoute";
 import UsersRoute from "./components/routes/UsersRoute";
@@ -14,8 +14,6 @@ import UsersRoute from "./components/routes/UsersRoute";
 import { initializeBlogs } from "./reducers/blogReducer";
 import { loginUser } from "./reducers/loggedInUserReducer";
 import { getAllUsers } from "./reducers/usersReducer";
-
-import "./App.css";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -61,16 +59,10 @@ const App = () => {
 
   return (
     <>
-      <div className="menu">
-        <Link to="/">home</Link>
-        <Link to="/users">users</Link>
-        <Link to="/blogs">blogs</Link>
-      </div>
-
+      <NavigationMenu />
       <Notification />
 
-      <h2>blogs</h2>
-      <UserPanel />
+      <h2>blog app</h2>
 
       <Switch>
         <Route path="/users/:id">

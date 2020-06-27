@@ -6,7 +6,7 @@ import BlogList from "../BlogList";
 
 const BlogsRoute = () => (
   <>
-    <Toggable buttonLabel="new blog">
+    <Toggable buttonLabel="create new">
       <AddBlogForm />
     </Toggable>
     <BlogList />

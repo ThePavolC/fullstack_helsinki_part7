@@ -1,0 +1,13 @@
+.menu > * {
+  margin-right: 6px;
+}
+
+.menu {
+  background-color: lightgray;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.user-panel {
+}

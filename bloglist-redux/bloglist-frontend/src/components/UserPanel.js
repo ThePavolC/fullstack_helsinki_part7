@@ -12,12 +12,12 @@ const UserPanel = () => {
   };
 
   return (
-    <p>
+    <div>
       {user.name} logged in{" "}
       <button onClick={handleLogout} id="logoutButton">
         logout
       </button>
-    </p>
+    </div>
   );
 };
 
