@@ -1,30 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { getAllUsers } from "../../reducers/usersReducer";
-
-const UsersRoute = () => {
-  const dispatch = useDispatch();
+const UsersRoute = ({ users }) => {
   const [summary, setSummary] = useState({});
-  const users = useSelector(({ users }) => users);
 
   useEffect(() => {
     const tempSummary = {};
     for (var user of users) {
-      tempSummary[user.name] = { count: user.blogs.length, idx: user.id };
+      tempSummary[user.name] = { count: user.blogs.length, id: user.id };
     }
     setSummary(tempSummary);
   }, [users]);
 
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
-
   const tableBodyContent = Object.entries(summary).map((row) => {
     const [name, stat] = row;
     return (
-      <tr key={stat.idx}>
-        <td>{name}</td>
+      <tr key={stat.id}>
+        <td>
+          <Link to={`/users/${stat.id}`}>{name}</Link>
+        </td>
         <td>{stat.count}</td>
       </tr>
     );
