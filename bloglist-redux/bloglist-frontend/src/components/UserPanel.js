@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { logoutUser } from "../reducers/userReducer";
+import { logoutUser } from "../reducers/loggedInUserReducer";
 
 const UserPanel = () => {
   const dispatch = useDispatch();
-  const user = useSelector(({ user }) => user.user);
+  const user = useSelector(({ loggedInUser }) => loggedInUser.user);
 
   const handleLogout = () => {
     dispatch(logoutUser());

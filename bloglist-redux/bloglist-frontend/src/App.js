@@ -1,19 +1,22 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import LoginForm from "./components/LoginForm";
-import AddBlogForm from "./components/AddBlogForm";
-import Toggable from "./components/Toggable";
 import Notification from "./components/Notification";
-import BlogList from "./components/BlogList";
 import UserPanel from "./components/UserPanel";
+import LoginForm from "./components/LoginForm";
+
+import BlogsRoute from "./components/routes/BlogsRoute";
+import UsersRoute from "./components/routes/UsersRoute";
 
 import { initializeBlogs } from "./reducers/blogReducer";
-import { loginUser } from "./reducers/userReducer";
+import { loginUser } from "./reducers/loggedInUserReducer";
+
+import "./App.css";
 
 const App = () => {
   const dispatch = useDispatch();
-  const user = useSelector(({ user }) => user);
+  const user = useSelector(({ loggedInUser }) => loggedInUser);
 
   const isUserLoggedIn = user.user && user.user !== null;
 
@@ -31,30 +34,36 @@ const App = () => {
     }
   }, [dispatch]);
 
-  let content;
-
   if (!isUserLoggedIn) {
-    content = <LoginForm />;
-  } else {
-    content = (
+    return (
       <>
-        <h2>blogs</h2>
-        <UserPanel />
-
-        <Toggable buttonLabel="new blog">
-          <AddBlogForm />
-        </Toggable>
-
-        <BlogList />
+        <Notification />
+        <LoginForm />
       </>
     );
   }
 
   return (
-    <>
+    <Router>
+      <div className="menu">
+        <Link to="/">home</Link>
+        <Link to="/users">users</Link>
+      </div>
+
       <Notification />
-      {content}
-    </>
+
+      <h2>blogs</h2>
+      <UserPanel />
+
+      <Switch>
+        <Route path="/users">
+          <UsersRoute />
+        </Route>
+        <Route path="/">
+          <BlogsRoute />
+        </Route>
+      </Switch>
+    </Router>
   );
 };
 

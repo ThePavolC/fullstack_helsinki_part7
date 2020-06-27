@@ -7,7 +7,7 @@ import {
   NOTIFICATION_TIMEOUT,
 } from "./notificationReducer";
 
-const setUser = (user) => {
+const setLoggedInUser = (user) => {
   return {
     type: "SET_USER",
     user,
@@ -31,7 +31,7 @@ export const loginUser = (username, password, localStorageUser = null) => {
       window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
 
       blogService.setToken(user.token);
-      dispatch(setUser(user));
+      dispatch(setLoggedInUser(user));
     } catch (error) {
       dispatch(
         showErrorNotificationWithTimeout(
@@ -47,12 +47,12 @@ export const logoutUser = () => {
   return (dispatch) => {
     window.localStorage.removeItem("loggedBlogappUser");
     blogService.setToken(null);
-    dispatch(setUser(null));
+    dispatch(setLoggedInUser(null));
     dispatch(showNotificationWithTimeout(`logged out`, NOTIFICATION_TIMEOUT));
   };
 };
 
-const userReducer = (state = {}, action) => {
+const loggedInUserReducer = (state = {}, action) => {
   switch (action.type) {
     case "SET_USER":
       return { user: action.user };
@@ -61,4 +61,4 @@ const userReducer = (state = {}, action) => {
   }
 };
 
-export default userReducer;
+export default loggedInUserReducer;
