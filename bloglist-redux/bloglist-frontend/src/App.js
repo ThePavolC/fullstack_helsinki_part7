@@ -6,6 +6,7 @@ import Notification from "./components/Notification";
 import UserPanel from "./components/UserPanel";
 import LoginForm from "./components/LoginForm";
 import User from "./components/User";
+import Blog from "./components/Blog";
 
 import BlogsRoute from "./components/routes/BlogsRoute";
 import UsersRoute from "./components/routes/UsersRoute";
@@ -20,6 +21,7 @@ const App = () => {
   const dispatch = useDispatch();
   const loggedInUser = useSelector(({ loggedInUser }) => loggedInUser);
   const users = useSelector(({ users }) => users);
+  const blogs = useSelector(({ blogs }) => blogs);
 
   const isUserLoggedIn = loggedInUser.user && loggedInUser.user !== null;
 
@@ -38,8 +40,15 @@ const App = () => {
     }
   }, [dispatch]);
 
-  const match = useRouteMatch("/users/:id");
-  const user = match ? users.find((user) => user.id === match.params.id) : null;
+  const userMatch = useRouteMatch("/users/:id");
+  const user = userMatch
+    ? users.find((user) => user.id === userMatch.params.id)
+    : null;
+
+  const blogMatch = useRouteMatch("/blogs/:id");
+  const blog = blogMatch
+    ? blogs.find((blog) => blog.id === blogMatch.params.id)
+    : null;
 
   if (!isUserLoggedIn) {
     return (
@@ -55,6 +64,7 @@ const App = () => {
       <div className="menu">
         <Link to="/">home</Link>
         <Link to="/users">users</Link>
+        <Link to="/blogs">blogs</Link>
       </div>
 
       <Notification />
@@ -68,6 +78,12 @@ const App = () => {
         </Route>
         <Route path="/users">
           <UsersRoute users={users} />
+        </Route>
+        <Route path="/blogs/:id">
+          <Blog blog={blog} />
+        </Route>
+        <Route path="/blogs">
+          <BlogsRoute />
         </Route>
         <Route path="/">
           <BlogsRoute />

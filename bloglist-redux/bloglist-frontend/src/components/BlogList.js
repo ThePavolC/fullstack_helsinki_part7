@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import Blog from "./Blog";
+import BlogListItem from "./BlogListItem";
 
 const BlogList = () => {
   const blogs = useSelector(({ blogs }) => blogs);
@@ -9,7 +9,7 @@ const BlogList = () => {
   return (
     <div id="blogsContainer">
       {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
+        <BlogListItem key={blog.id} blog={blog} />
       ))}
     </div>
   );
