@@ -1,27 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import { likeBlog, removeBlog } from "../reducers/blogReducer";
 
+const useStyles = makeStyles((theme) => ({
+  details: {
+    flexDirection: "column",
+    maxWidth: "20%",
+  },
+  column: {
+    flexBasis: "33.33%",
+  },
+}));
+
 const BlogListItem = ({ blog }) => {
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: "solid",
-    borderWidth: 1,
-    marginBottom: 5,
-  };
-
-  const [visible, setVisible] = useState(false);
+  const classes = useStyles();
   const dispatch = useDispatch();
-
-  const showWhenVisible = { display: visible ? "" : "none" };
-
-  const toggleVisibility = () => {
-    setVisible(!visible);
-  };
 
   const onClickAddLike = async () => {
     dispatch(likeBlog(blog));
@@ -37,31 +38,32 @@ const BlogListItem = ({ blog }) => {
   };
 
   return (
-    <div style={blogStyle} id="blog">
-      <Link to={`/blogs/${blog.id}`}>
-        <span style={{ marginRight: 6 }} id="title">
-          {blog.title}
-        </span>
-        <span style={{ marginRight: 6 }} id="author">
-          {blog.author}
-        </span>
-      </Link>
-      <span>
-        <button onClick={toggleVisibility} className="toggleButton">
-          {visible ? "hide" : "view"}
-        </button>
-      </span>
-      <div style={showWhenVisible} className="togglableContent">
-        <div>{blog.url}</div>
-        <div>
-          likes {blog.likes}{" "}
-          <button onClick={onClickAddLike} className="likeButtonClass">
-            like
+    <div id="blog">
+      <ExpansionPanel>
+        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <Link to={`/blogs/${blog.id}`}>
+            <span style={{ marginRight: 6 }} id="title">
+              {blog.title}
+            </span>
+            <span style={{ marginRight: 6 }} id="author">
+              {blog.author}
+            </span>
+          </Link>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails className={classes.details}>
+          <div className={classes.column}>{blog.url}</div>
+          <div className={classes.column}>
+            likes {blog.likes}{" "}
+            <button onClick={onClickAddLike} className="likeButtonClass">
+              like
+            </button>
+          </div>
+          <div className={classes.column}>{blog.user.name}</div>
+          <button onClick={onClickRemove} className={classes.column}>
+            remove
           </button>
-        </div>
-        <div>{blog.user.name}</div>
-        <button onClick={onClickRemove}>remove</button>
-      </div>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
     </div>
   );
 };

@@ -1,5 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import Typography from "@material-ui/core/Typography";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
 import AddCommentForm from "./AddCommentForm";
 
@@ -18,19 +21,24 @@ const Blog = ({ blog }) => {
 
   return (
     <>
-      <h2>{blog.title}</h2>
-      <div>
-        <a href={blog.url}>{blog.url}</a>
-      </div>
-      <div>
-        likes {blog.likes}{" "}
-        <button onClick={onClickAddLike} className="likeButtonClass">
-          like
-        </button>
-      </div>
-      <div>added by {blog.author}</div>
+      <Typography variant="h6">{blog.title}</Typography>
+      <Card>
+        <CardContent>
+          <div>
+            <a href={blog.url}>{blog.url}</a>
+          </div>
+          <div>
+            likes {blog.likes}{" "}
+            <button onClick={onClickAddLike} className="likeButtonClass">
+              like
+            </button>
+          </div>
+          <div>added by {blog.author}</div>
+        </CardContent>
+      </Card>
 
-      <h3>comments</h3>
+      <hr />
+      <Typography variant="subtitle1">comments:</Typography>
       <AddCommentForm blog={blog} />
       <ul>
         {blog.comments &&

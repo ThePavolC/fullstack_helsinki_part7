@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+
 const UsersRoute = ({ users }) => {
   const [summary, setSummary] = useState({});
 
@@ -15,27 +24,29 @@ const UsersRoute = ({ users }) => {
   const tableBodyContent = Object.entries(summary).map((row) => {
     const [name, stat] = row;
     return (
-      <tr key={stat.id}>
-        <td>
+      <TableRow key={stat.id}>
+        <TableCell>
           <Link to={`/users/${stat.id}`}>{name}</Link>
-        </td>
-        <td>{stat.count}</td>
-      </tr>
+        </TableCell>
+        <TableCell>{stat.count}</TableCell>
+      </TableRow>
     );
   });
 
   return (
     <>
-      <h2>Users</h2>
-      <table>
-        <thead style={{ fontWeight: "bold" }}>
-          <tr>
-            <td>name</td>
-            <td>blogs created</td>
-          </tr>
-        </thead>
-        <tbody>{tableBodyContent}</tbody>
-      </table>
+      <Typography variant="h6">Users</Typography>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead style={{ fontWeight: "bold" }}>
+            <TableRow>
+              <TableCell>name</TableCell>
+              <TableCell>blogs created</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{tableBodyContent}</TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 };

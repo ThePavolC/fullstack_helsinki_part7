@@ -2,6 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 
+import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+
 import Notification from "./components/Notification";
 import LoginForm from "./components/LoginForm";
 import User from "./components/User";
@@ -15,7 +19,14 @@ import { initializeBlogs } from "./reducers/blogReducer";
 import { loginUser } from "./reducers/loggedInUserReducer";
 import { getAllUsers } from "./reducers/usersReducer";
 
+const useStyles = makeStyles((theme) => ({
+  marginSpacing: {
+    marginBottom: theme.spacing(2),
+  },
+}));
+
 const App = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const loggedInUser = useSelector(({ loggedInUser }) => loggedInUser);
   const users = useSelector(({ users }) => users);
@@ -58,11 +69,13 @@ const App = () => {
   }
 
   return (
-    <>
+    <Container>
       <NavigationMenu />
       <Notification />
 
-      <h2>blog app</h2>
+      <Typography variant="h4" className={classes.marginSpacing}>
+        Blog App
+      </Typography>
 
       <Switch>
         <Route path="/users/:id">
@@ -81,7 +94,7 @@ const App = () => {
           <BlogsRoute />
         </Route>
       </Switch>
-    </>
+    </Container>
   );
 };
 

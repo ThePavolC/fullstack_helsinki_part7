@@ -1,30 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Alert } from "@material-ui/lab";
 
 const Notification = () => {
-  const baseStyle = {
-    border: "4px solid green",
-    color: "green",
-    backgroundColor: "lightgrey",
-    padding: "10px",
-    fontSize: "20px",
-  };
-
+  const [severity, setSeverity] = useState("success");
   const notification = useSelector((state) => state.notification);
+
+  useEffect(() => {
+    if (notification.isError) {
+      setSeverity("error");
+    }
+  }, [notification]);
 
   if (!notification.message) {
     return <></>;
   }
 
-  if (notification.isError) {
-    baseStyle.border = "4px solid red";
-    baseStyle.color = "red";
-  }
-
   return (
-    <div style={baseStyle} id="notification">
+    <Alert id="notification" severity={severity}>
       {notification.message}
-    </div>
+    </Alert>
   );
 };
 
