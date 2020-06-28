@@ -35,6 +35,21 @@ const addLike = async (blog) => {
   return response.data;
 };
 
+const addComment = async (blog, comment) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const { id } = blog;
+  const content = { content: comment };
+
+  const response = await axios.post(
+    `${baseUrl}/${id}/comment`,
+    content,
+    config
+  );
+  return response.data;
+};
+
 const removeBlog = async (blog) => {
   const config = {
     headers: { Authorization: token },
@@ -45,4 +60,4 @@ const removeBlog = async (blog) => {
   return response.data;
 };
 
-export default { getAll, addBlog, setToken, addLike, removeBlog };
+export default { getAll, addBlog, setToken, addLike, removeBlog, addComment };

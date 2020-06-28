@@ -51,6 +51,16 @@ export const likeBlog = (blog) => {
   };
 };
 
+export const addCommentToBlog = (blog, comment) => {
+  return async (dispatch) => {
+    const updatedBlog = await blogService.addComment(blog, comment);
+    dispatch({
+      type: "ADD_COMMENT",
+      data: updatedBlog,
+    });
+  };
+};
+
 export const removeBlog = (blog) => {
   return async (dispatch) => {
     try {
@@ -83,13 +93,20 @@ const blogReducer = (state = [], action) => {
     case "INIT_BLOGS":
       return action.data;
     case "ADD_LIKE":
-      const { id } = action.data;
-      const likedBlog = state.find((a) => a.id === id);
+      const likedBlogId = action.data.id;
+      const likedBlog = state.find((a) => a.id === likedBlogId);
       const updatedBlog = {
         ...likedBlog,
         likes: likedBlog.likes + 1,
       };
-      return state.map((blog) => (blog.id !== id ? blog : updatedBlog));
+      return state.map((blog) =>
+        blog.id === likedBlogId ? updatedBlog : blog
+      );
+    case "ADD_COMMENT":
+      const commentedBlog = action.data;
+      return state.map((blog) =>
+        blog.id === commentedBlog.id ? commentedBlog : blog
+      );
     case "REMOVE_BLOG":
       return state.filter((blog) => blog.id !== action.data.id);
     default:

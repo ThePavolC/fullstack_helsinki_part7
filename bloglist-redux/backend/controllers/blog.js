@@ -31,7 +31,7 @@ blogRouter.get("/", async (request, response) => {
       name: 1,
       id: 1,
     })
-    .populate("comments");
+    .populate("comments", { id: 1, content: 1 });
   response.json(blogs.map((blog) => blog.toJSON()));
 });
 
@@ -71,14 +71,18 @@ blogRouter.post("/:id/comment", async (request, response) => {
     return response.status(404).end();
   }
 
-  const content = request.body.content;
-  const comment = new Comment({ content });
+  const commentContent = request.body.content;
+  const comment = new Comment({ content: commentContent });
   await comment.save();
 
   blog.comments = blog.comments.concat(comment.id);
   await blog.save();
 
-  response.status(201).json(blog);
+  updatedBlog = await blog
+    .populate("comments", { id: 1, content: 1 })
+    .execPopulate();
+
+  response.status(201).json(updatedBlog);
 });
 
 blogRouter.delete("/:id", async (request, response) => {

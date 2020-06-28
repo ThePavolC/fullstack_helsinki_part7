@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
+import AddCommentForm from "./AddCommentForm";
+
 import { likeBlog } from "../reducers/blogReducer";
 
 const Blog = ({ blog }) => {
@@ -29,6 +31,7 @@ const Blog = ({ blog }) => {
       <div>added by {blog.author}</div>
 
       <h3>comments</h3>
+      <AddCommentForm blog={blog} />
       <ul>
         {blog.comments &&
           blog.comments.map((comment) => (
