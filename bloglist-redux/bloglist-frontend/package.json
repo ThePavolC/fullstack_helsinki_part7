@@ -7,7 +7,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@testing-library/user-event": "^7.2.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "eslint-plugin-react": "^7.20.0",
     "gulp": "^4.0.2",
     "prop-types": "^15.7.2",
